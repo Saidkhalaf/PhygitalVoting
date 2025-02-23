@@ -1,0 +1,115 @@
+@using PM.BL.Domain.flows
+@model PM.BL.Domain.projects.Project
+
+@{
+    ViewBag.Title = "Project";
+    Layout = "_Layout";
+}
+
+<h2>@Model.Name</h2>
+
+<div id="flows">
+    @foreach (var flow in Model.Flows)
+    {
+        <div class="card flow">
+            <h5 class="card-header flow-name" id="flow-name-@flow.Id">@flow.Name</h5>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <p class="type">Type:</p>
+                        @if (flow.FlowType == FlowType.CIRCULAR)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input flow-type-@flow.Id" type="radio" name="type-@flow.Id" id="circulair-@flow.Id" value="0" checked disabled>
+                                <label class="form-check-label" for="circulair-@flow.Id">
+                                    Circulair
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input flow-type-@flow.Id" type="radio" name="type-@flow.Id" id="linear-@flow.Id" value="1" disabled>
+                                <label class="form-check-label" for="linear-@flow.Id">
+                                    Lineair
+                                </label>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input flow-type-@flow.Id" type="radio" name="type-@flow.Id" id="circulair-@flow.Id" value="0" disabled>
+                                <label class="form-check-label" for="circulair-@flow.Id">
+                                    Circulair
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input flow-type-@flow.Id" type="radio" name="type-@flow.Id" id="linear-@flow.Id" value="1" checked disabled>
+                                <label class="form-check-label" for="linear-@flow.Id">
+                                    Lineair
+                                </label>
+                            </div>
+                        }
+
+                    </li>
+                    <li class="list-group-item">
+                        <button type="button" class="btn btn-light edit-flow-button" id="edit-flow-button-@flow.Id">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button type="button" class="btn btn-success update-flow-button" id="update-flow-button-@flow.Id">
+                            <i class="bi bi-check-lg"></i>
+                        </button>
+                        <button type="button" class="btn btn-secondary cancel-edit-flow-button" id="cancel-edit-flow-button-@flow.Id">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <a asp-area="" asp-controller="Flow" asp-action="Index" asp-route-flowId="@flow.Id" class="btn btn-primary edit-questions">Vragen bewerken</a>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-danger delete-flow" data-flow-id="@flow.Id" data-project-id="@Model.Id" data-bs-toggle="modal" data-bs-target="#delete-flow-modal">Enquête Verwijderen</button>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="card flow">
+    <div class="card-body">
+        <form asp-controller="Project" asp-action="AddFlow" method="post">
+            <input type="hidden" name="projectId" value="@Model.Id"/>
+            <button type="submit" id="btn-new-flow">
+                <span id="new-flow-icon">
+                    <i class="bi bi-plus-circle"></i>
+                </span>
+            </button>
+        </form>
+        <p class="card-text" id="new-flow-text">Nieuwe Enquête</p>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="delete-flow-modal" tabindex="-1" aria-labelledby="delete-project-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="delete-project-modal-label">Enquête verwijderen</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-controller="Project" asp-action="RemoveFlow" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="modal-remove-flow-id" name="flowId"/>
+                    <input type="hidden" id="modal-remove-project-id" name="projectId"/>
+                    <p>Ben je zeker dat je deze enquête wil verwijderen, deze actie is onomkeerbaar.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button>
+                    <button type="submit" class="btn btn-danger">Verwijderen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/dist/projectDetails.entry.js" defer></script>
+}

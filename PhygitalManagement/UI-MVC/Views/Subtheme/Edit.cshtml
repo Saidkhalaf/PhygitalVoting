@@ -1,0 +1,98 @@
+﻿@using PM.BL.Domain.elements
+@using PM.BL.Domain.questions
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using PM.BL.Domain.flows
+@model PM.BL.Domain.subthemes.Subtheme
+
+@{
+    ViewBag.Title = "Edit Subtheme";
+    Layout = "_Layout";
+}
+<body class="subtheme-background">
+<div class="container mt-5 ">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-ms-10">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Edit Subtheme</h2>
+                    <input type="hidden" value="@Model.FlowId" id="flowId">
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name of the Subtheme</label>
+                            <input asp-for="Name" type="text" id="name" name="name" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea asp-for="Description" id="description" name="description" class="form-control" required></textarea>
+                        </div>
+                        <div class="row" style="justify-content: space-between;
+                                                    align-items: end;">
+                            <div class="input-group mb-3 col-md-4">
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="addElement" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                        <span class="bi bi-plus"></span> Add Element
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li>
+                                            @Html.ActionLink("Add Question", "AddQuestions", "Subtheme",
+                                                new { name = @Model.Name, description = @Model.Description, subthemeId = @Model.Id },
+                                                new { @class = "dropdown-item editQuestion" })
+
+                                            @* <a class="dropdown-item editQuestion" asp-controller="Subtheme" asp-action="AddQuestions" asp-="">Add Question</a> *@
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        @foreach (Element element in Model.Elements)
+                        {
+                            <div class="col-md-8">
+                                @if (element is Question)
+                                {
+                                    Question question = (Question)element;
+                                    <div>
+                                        <i class="bi bi-question-circle-fill"></i>
+                                        <span>@question.QuestionText</span>
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span class="bi bi-three-dots-vertical"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <li>
+                                                    <a class="dropdown-item editQuestion" asp-controller="Question" asp-action="Edit" asp-route-id="@question.ElementId">Modify</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item editQuestion" asp-controller="Question" asp-action="Delete" asp-route-id="@question.ElementId">Delete</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        <div class="text-center">
+                            <button class="btn btn-primary updateSubthemes" id="btnSave" type="button">Save</button>
+                            <a href="#" class="btn btn-secondary" id="btnCancel">Cancel</a>
+                        </div>
+                    </form>
+                    <div class="alert alert-success mt-3" id="success-alert" style="display:none">
+                        <strong>Success!</strong> Subtheme is aangepast.
+                    </div>
+                    <div class="alert alert-danger" id="error-alert" style="display:none">
+                        <strong>Error!</strong> Subtheme kan niet aangepast worden. Probeer het later opnieuw.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+@section Scripts
+{
+    <script src="~/dist/editSubthemes.entry.js"></script>
+}

@@ -1,0 +1,108 @@
+@model IEnumerable<PM.BL.Domain.projects.Project>
+
+@{
+    ViewBag.Title = "Projects";
+    Layout = "_Layout";
+}
+
+<h2>Projecten</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Naam</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var project in Model)
+    {
+        <tr>
+            <td>
+                <div class="input-group">
+                    <input type="text" disabled readonly class="form-control project-name" placeholder="geef uw project een naam" id="project-name-@project.Id" value="@project.Name">
+                    <button type="button" class="btn btn-light edit-name-button" id="edit-name-button-@project.Id">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-success update-name-button" id="update-name-button-@project.Id">
+                        <i class="bi bi-check-lg"></i>
+                    </button>
+                    <button type="button" class="btn btn-secondary cancel-edit-name-button" id="cancel-edit-name-button-@project.Id">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="div-project-options">
+                    <form asp-controller="Project" asp-action="PostProject" method="post" class="form-project">
+                        <input type="hidden" name="projectId" value="@project.Id"/>
+                        <button type="submit" class="btn btn-secondary settings">
+                            <i class="bi bi-gear"></i> Instellingen
+                        </button>
+                    </form>
+                    <a asp-area="" asp-controller="Project" asp-action="Answers" asp-route-projectId="@project.Id" class="btn btn-secondary">Resultaten</a>
+
+                    <div class="form-check form-switch project-status">
+                        @if (project.Status)
+                        {
+                            <label class="form-check-label label-switch" id="label-switch-@project.Id" for="switch-@project.Id">Actief</label>
+                        }
+                        else
+                        {
+                            <label class="form-check-label label-switch" id="label-switch-@project.Id" for="switch-@project.Id">Inactief</label>
+                        }
+                        <input class="form-check-input switch" type="checkbox" role="switch" checked="@project.Status" id="switch-@project.Id">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-danger delete-project" id="btn-delete-project-@project.Id" data-bs-toggle="modal" data-bs-target="#delete-project-modal"><span><i class="bi bi-trash3"></i></span></button>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nieuw project</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Nieuw Project</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-controller="Project" asp-action="Add" method="post">
+                <div class="modal-body">
+                    <input name="name" required class="form-control" type="text" placeholder="Naam">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button>
+                    <button type="submit" class="btn btn-primary">Aanmaken</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="delete-project-modal" tabindex="-1" aria-labelledby="delete-project-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="delete-project-modal-label">Project verwijderen</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-controller="Project" asp-action="Remove" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="modal-remove-project-id" name="projectId"/>
+                    <p>Ben je zeker dat je dit project wil verwijderen, deze actie is onomkeerbaar.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button>
+                    <button type="submit" class="btn btn-danger">Verwijderen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/dist/project.entry.js" defer></script>
+}

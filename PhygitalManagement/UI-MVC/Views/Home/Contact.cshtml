@@ -1,0 +1,63 @@
+@model ContactViewModel
+
+@{
+    ViewBag.Title = "Contact Us";
+    Layout = "_Layout";
+}
+
+<body class="contact-background">
+
+<h1 class="mb-4 contact-header">@ViewBag.Title</h1>
+
+@if (TempData["SuccessMessage"] != null)
+        {
+            <partial name="_ContactSuccessPartial" />
+        }
+
+<form asp-controller="Home" asp-action="Contact" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Enter Your Name</label>
+            <input asp-for="Name" id="name" class="form-control" required>
+            <span asp-validation-for="Name" class="small text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Enter a Valid Email Address</label>
+            <input asp-for="Email" id="email" type="email" class="form-control" required>
+            <span asp-validation-for="Email" class="small text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="phone" class="form-label">Enter Your Phone</label>
+            <input asp-for="Phone" id="phone" class="form-control" required>
+            <span asp-validation-for="Phone" class="small text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="subject" class="form-label">Enter a Subject</label>
+            <input asp-for="Subject" id="subject" class="form-control" required>
+            <span asp-validation-for="Subject" class="small text-danger"></span>
+        </div>
+
+    <div class="mb-3">
+        <label for="message" class="form-label">Enter Your Message</label>
+        <textarea asp-for="Message" id="message" class="form-control" rows="5" required></textarea>
+        <span asp-validation-for="Message" class="small text-danger"></span>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+
+    <!-- Social Media Icons -->
+    <div class="social-icons">
+        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+    </div>
+
+</body>
+
+@section Scripts
+{
+    <script src="~/dist/validation.entry.js" defer></script>
+}

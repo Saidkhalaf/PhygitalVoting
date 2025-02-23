@@ -1,0 +1,100 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using PM.BL.Domain.questions
+@model PM.BL.Domain.questions.Question
+
+@{
+    ViewBag.Title = "Edit Question";
+    Layout = "_Layout";
+}
+
+<div class="modal-body">
+    <h2 class="text-center">Edit Question</h2>
+    <input type="hidden" id="subthemeId" value="@ViewBag.subthemeId"/>
+    <form >
+        <div class="mb-3">
+            <label class="form-label">Vraag</label>
+            <input asp-for="QuestionText" type="text" id="description" name="text" class="form-control" required>
+        </div>
+        <div class="mt-3">
+            <label class="col-sm-2 col-form-label fw-bold">Question Type</label>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-12">
+                <div class="col-sm-10 questiontypeOptions">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="option" id="singleQuestion" value="0" @(Model.QuestionType == QuestionType.SINGLE ? "checked" : "")>
+                        <label class="form-check-label" for="singleQuestion">Single Question</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="option" id="MultipleQuestion" value="1" @(Model.QuestionType == QuestionType.MULTIPLE ? "checked" : "")>
+                        <label class="form-check-label" for="MultipleQuestion">Multiple Question</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="option" id="RangeQuestion" value="2" @(Model.QuestionType == QuestionType.RANGE ? "checked" : "")>
+                        <label class="form-check-label" for="RangeQuestion">Range Question</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="option" id="OpenQuestion" value="3" @(Model.QuestionType == QuestionType.OPEN ? "checked" : "")>
+                        <label class="form-check-label" for="OpenQuestion">Open Question</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3">
+            <label class="col-sm-2 col-form-label fw-bold">Response Options</label>
+
+        </div>
+            @switch (Model.QuestionType)
+            {
+                case QuestionType.SINGLE:
+                    <div id="SingleResponseOptionsContainer" class="responseOptionsContainer">
+                        @foreach (ResponseOption responseOption in @Model.ResponseOptions)
+                        {
+                            <div class="d-flex mb-3">
+                                <textarea class="form-control responseOptions" placeholder="Response Option">@responseOption.OptionText</textarea>
+                                <button class="btn btn-outline-danger ms-2" type="button">Remove</button>
+                            </div>
+                        }
+                    </div>
+                    <button class="addResponseButton" data-container-id="SingleResponseOptionsContainer" type="button">add response option</button>
+                    break;
+                case QuestionType.MULTIPLE:
+                    <div id="MultipleResponseOptionsContainer" class="responseOptionsContainer">
+                        @foreach (ResponseOption responseOption in @Model.ResponseOptions)
+                        {
+                            <div class="d-flex mb-3">
+                                <textarea class="form-control responseOptions" placeholder="Response Option">@responseOption.OptionText</textarea>
+                                <button class="btn btn-outline-danger ms-2" type="button">Remove</button>
+                            </div>
+                        }
+                    </div>
+                    <button class="addResponseButton" data-container-id="MultipleResponseOptionsContainer" type="button">add response option</button>
+
+                    break;
+                case QuestionType.OPEN:
+                    break;
+                case QuestionType.RANGE:
+                    <div id="RangeResponseOptionsContainer" class="responseOptionsContainer">
+                        @foreach (ResponseOption responseOption in @Model.ResponseOptions)
+                        {
+                            <div class="d-flex mb-3">
+                                <textarea class="form-control responseOptions" placeholder="Response Option">@responseOption.OptionText</textarea>
+                                <button class="btn btn-outline-danger ms-2" type="button">Remove</button>
+                            </div>
+                        }
+                    </div>
+                    <button class="addResponseButton" data-container-id="RangeResponseOptionsContainer" type="button">add response option</button>
+                    break;
+            }
+        
+        <div class="text-center">
+            <button class="btn btn-primary updateQuestion" id="btnSave" type="button">Save</button>
+            <a href="#" class="btn btn-secondary" id="btnCancel">Cancel</a>
+        </div>
+    </form >
+</div >
+
+@section Scripts
+{
+    <script src = "~/dist/editQuestions.entry.js" defer ></script >
+}

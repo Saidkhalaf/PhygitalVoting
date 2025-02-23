@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Home" xml:space="preserve">
+        <value>Home</value>
+    </data>
+    <data name="Welcome" xml:space="preserve">
+        <value>Welkom</value>
+    </data>
+    <data name="HomeText" xml:space="preserve">
+        <value>Ben je klaar om je stem te laten horen en echte verandering teweeg te brengen? Stap dan binnen in de wereld van StemConnect, waar we jongeren zoals jij de kracht geven om hun mening te uiten en invloed uit te oefenen op de wereld om hen heen.</value>
+    </data>
+    <data name="CardText" xml:space="preserve">
+        <value>Een korte voorbeeldtekst om voort te bouwen op de kaarttitel en het grootste deel van de inhoud van de kaart te vormen.</value>
+    </data>
+    <data name="item2textbox" xml:space="preserve">
+        <value>Een korte tekst die hier in de plaats zal komen.</value>
+    </data>
+    <data name="item2textboxtitel" xml:space="preserve">
+        <value>PLACEHOLDER</value>
+    </data>
+    <data name="Choose your subtheme" xml:space="preserve">
+        <value>Kies uw subthema</value>
+    </data>
+    <data name="Answer the questions" xml:space="preserve">
+        <value>Beantwoord de vragen</value>
+    </data>
+    <data name="Repeat" xml:space="preserve">
+        <value>Doe het opnieuw </value>
+    </data>
+    <data name="Waar wacht je op" xml:space="preserve">
+        <value />
+    </data>
+    <data name="Waar wacht je op?" xml:space="preserve">
+        <value>Waar wacht je op ?</value>
+    </data>
+    <data name="Leave a personal message" xml:space="preserve">
+        <value>Laat een persoonlijke bericht achter</value>
+    </data>
+    <data name="Neem nu deel" xml:space="preserve">
+        <value>Neem nu deel</value>
+    </data>
+</root>

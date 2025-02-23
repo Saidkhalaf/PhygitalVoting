@@ -1,0 +1,243 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>disable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>PM.UI.Web.MVC</RootNamespace>
+        <AssemblyName>PM.UI.Web.MVC</AssemblyName>
+        <IsPackable>false</IsPackable>
+        <MpaRoot>ClientApp\</MpaRoot>
+        <WWWRoot>wwwroot\</WWWRoot>
+        <DefaultItemExcludes>$(DefaultItemExcludes);$(MpaRoot)node_modules\**</DefaultItemExcludes>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.3"/>
+        <PackageReference Include="SixLabors.ImageSharp" Version="3.1.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- Don't publish the MPA source files, but do show them in the project files list -->
+        <Content Remove="$(MpaRoot)**"/>
+        <None Remove="$(MpaRoot)**"/>
+        <None Include="$(MpaRoot)**" Exclude="$(MpaRoot)node_modules\**"/>
+        <Content Update="ClientApp\src\scss\customFont\background.png">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+        <Content Update="ClientApp\src\scss\subtheme\subtheme.css">
+          <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+          <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+    </ItemGroup>
+
+    <Target Name="NpmInstall" BeforeTargets="Build" Condition=" !Exists('$(MpaRoot)node_modules') ">
+        <!-- Ensure Node.js is installed -->
+        <Exec Command="node --version" ContinueOnError="true">
+            <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
+        </Exec>
+        <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE."/>
+        <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..."/>
+        <Exec WorkingDirectory="$(MpaRoot)" Command="npm install"/>
+    </Target>
+
+    <Target Name="NpmRunBuild" BeforeTargets="Build" DependsOnTargets="NpmInstall">
+        <Exec WorkingDirectory="$(MpaRoot)" Command="npm run build"/>
+    </Target>
+
+    <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+        <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+        <Exec WorkingDirectory="$(MpaRoot)" Command="npm install"/>
+        <Exec WorkingDirectory="$(MpaRoot)" Command="npm run build"/>
+
+        <!-- Include the newly-built files in the publish output -->
+        <ItemGroup>
+            <DistFiles Include="$(WWWRoot)dist\**"/>
+            <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+                <RelativePath>%(DistFiles.Identity)</RelativePath>
+                <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+                <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            </ResolvedFileToPublish>
+        </ItemGroup>
+    </Target>
+
+    <Target Name="NpmClean" BeforeTargets="Clean">
+        <RemoveDir Directories="$(WWWRoot)dist"/>
+        <RemoveDir Directories="$(MpaRoot)node_modules"/>
+    </Target>
+
+
+
+
+    <ItemGroup>
+        <ProjectReference Include="..\BL\BL.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.15" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.15" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.18" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.15">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.12" />
+        <PackageReference Include="Npgsql" Version="7.0.6" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <_ContentIncludedByDefault Remove="Views\Flow\Index.cshtml" />
+        <_ContentIncludedByDefault Remove="wwwroot\css\customFont\runescape.ttf" />
+        <_ContentIncludedByDefault Remove="wwwroot\css\homePage.css" />
+        <_ContentIncludedByDefault Remove="wwwroot\css\site.css" />
+
+        <_ContentIncludedByDefault Remove="wwwroot\dist\39795c0b4513de014cf8.woff" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\3c4bbb0ca8ee1b13d551.ttf" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\b7bcc075b395c14ce8c2.woff2" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\index.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\index.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\site.css" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\site.css.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\site.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\site.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\validation.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\validation.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\images\background.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\images\button.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\images\Election1.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\images\Election2.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\images\Election3.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\images\kirby.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\images\layton.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\images\link.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\images\mario.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\images\sonic.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\images\StemconnectBanner.png" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\question.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\question.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\subthemeEdit.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\subthemeEdit.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\3839ef06ce1f423ec8ad.jpg" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\loginCopyUsers.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\loginCopyUsers.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\subthemeDelete.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\subthemeDelete.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\deleteSubtheme.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\editSubtheme.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\subthemeActivateOrDeactivate.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\addSubtheme.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\addSubtheme.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\deleteSubtheme.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\modifySubtheme.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\modifySubtheme.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\subthemeActivateOrDeactivate.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\editSubtheme.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\project.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\project.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\selectLanguage.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\selectLanguage.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\questions.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\questions.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\addQuestion.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\addQuestion.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\loadNextQuestion.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\loadNextQuestion.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\projectDetails.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\projectDetails.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\formSubmitOpinion.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\formSubmitOpinion.entry.js.map" />
+        <_ContentIncludedByDefault Remove="Views\Customer\Add.cshtml" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\addQuestions.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\addQuestions.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\addResponseOptions.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\addResponseOptions.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\deleteSubthemes.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\deleteSubthemes.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\editQuestions.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\editQuestions.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\editSubthemes.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\editSubthemes.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\languageDropdown.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\languageDropdown.entry.js.map" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\loadNextOrPreviousSubtheme.entry.js" />
+        <_ContentIncludedByDefault Remove="wwwroot\dist\loadNextOrPreviousSubtheme.entry.js.map" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <EmbeddedResource Update="Resources\Views\Shared\_Layout.en.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>_Layout.en.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Views\Shared\_Layout.fr.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>_Layout.fr.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Views\Index.en.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Index.en.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Views\Index.fr.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Index.fr.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Views\Shared\_Layout.nl.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>_Layout.nl.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Views\Home\Index.en.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Index.en.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Views\Home\Index.fr.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Index.fr.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Views\Home\Index.nl.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Index.nl.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <Compile Update="Resources\Pages\Shared\_Layout.en.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>_Layout.en.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Resources\Pages\Shared\_Layout.fr.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>_Layout.fr.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Resources\Pages\Index.en.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Index.en.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Resources\Pages\Index.fr.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Index.fr.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Resources\Views\Shared\_Layout.nl.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>_Layout.nl.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Resources\Views\Home\Index.nl.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Index.nl.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <AdditionalFiles Include="Views\Home\Contact.cshtml" />
+    </ItemGroup>
+
+</Project>

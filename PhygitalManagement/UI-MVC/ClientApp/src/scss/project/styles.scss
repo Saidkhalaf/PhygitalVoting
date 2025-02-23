@@ -1,0 +1,89 @@
+.form-control:focus{
+    border-color: var(--bs-border-color);
+    box-shadow: none;
+}
+
+.input-group{
+    display: inline-flex;
+    width: max-content;
+}
+
+.input-group > .project-name {
+    
+    flex: none;
+    width: 20rem;
+    background-color: white;
+}
+
+.edit-name-button{
+    border-color: #dee2e6;
+    background-color: #f8f9fa;
+}
+
+.update-name-button, .cancel-edit-name-button, .update-flow-button, .cancel-edit-flow-button{
+    display: none;
+}
+
+.div-project-options{
+    display: inline-flex;
+    margin-left: 1rem;
+}
+
+.settings{
+    margin-right: 1rem;
+}
+
+.form-project{
+    display: inline-flex;
+}
+
+.delete-project{
+    float: right;
+}
+
+.flow{
+    display: inline-flex;
+    width: 20rem;
+    margin-right: 1rem;
+    margin-bottom: 2rem;
+}
+
+.delete-flow, .edit-questions{
+    width: 9rem;
+}
+
+.type{
+    margin-bottom: 0;
+}
+
+.form-check-input[type=radio]{
+    display: block;
+}
+
+.project-status{
+    margin-left: 2rem;
+}
+
+.switch{
+    font-size: 1.5rem;
+}
+
+.label-switch{
+    padding-top: 0.3rem;
+}
+
+#new-flow-text{
+    
+    display: flex;
+    justify-content: center;
+}
+
+#new-flow-icon{
+    font-size: 3rem;
+}
+
+#btn-new-flow{
+    width: 100%;
+    background-color: transparent;
+    border: none;
+}

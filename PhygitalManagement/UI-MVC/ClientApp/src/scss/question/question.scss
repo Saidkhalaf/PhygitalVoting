@@ -1,0 +1,101 @@
+﻿.question-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+
+.subthemeDesc {
+    color: black;
+    margin-bottom: 20px;
+    font-size: 65px;
+}
+
+.question-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 800px; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-content {
+    text-align: left;
+}
+.card-header{
+    background-color: #ff8940;
+    color: white;
+}
+
+.card-title{
+    font-size: 50px;
+}
+
+.hide_radio_checkbox input[type="radio"] input[type="checkbox"] {
+    display: none;
+}
+
+input[type="radio"]:checked + label.btn-primary,
+input[type="checkbox"]:checked + label.btn-primary {
+    background-color: green;
+    color: white;
+}
+
+
+.divOptions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.option-button {
+    margin-top: 5px;
+    width: 50%;
+    background-color: grey;
+}
+
+.navigation-buttons-Question{
+    display: flex;
+    justify-content: space-between; 
+    margin-top: 10px;
+}
+
+.navigation-buttons-Question #next-question {
+    order: 2; 
+    background-color: #ff8940;
+}
+
+.navigation-buttons-Question #previous-question {
+    order: 1; 
+    background-color: #ff8940;
+}
+
+.navigation-buttons-Subthemes{
+    display: flex;
+    justify-content: space-between; 
+    margin-top: 10px;
+}
+
+.navigation-buttons-Subthemes #next-subtheme {
+    order: 2; 
+    background-color: black;
+}
+
+.navigation-buttons-Subthemes #previous-subtheme {
+    order: 1;
+    background-color: black;
+}
+
+@media only screen and (max-width: 576px){
+    .subthemeDesc{
+        margin-top: 33%;
+    }
+}
+

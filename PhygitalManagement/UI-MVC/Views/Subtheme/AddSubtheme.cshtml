@@ -1,0 +1,53 @@
+﻿@model SubthemeViewModel
+
+@{
+    ViewBag.Title = "Add Subtheme";
+    Layout = "_Layout";
+}
+
+<h2>Add subtheme</h2>
+
+<form asp-controller="Subtheme" asp-action="AddSubtheme" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="flowId" value="@Model.FlowId"/>
+    <section class="mt-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">Subtheme</h5>
+
+                <div class="row mb-3 align-items-center">
+                    <div class="col-sm-4 mt-3">
+                        <label for="name" class="col-form-label fw-bold" asp-for="Name">Name:</label>
+                        <div class="col-sm-10">
+                            <input id="name" class="form-control" type="text" placeholder="name" asp-for="Name"/>
+                        </div>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-4 offset-sm-4 image-upload">
+                        <label for="image">Subtheme Image:</label>
+                        <div class="col-sm-10">
+                            <input type="file" class="form-control" id="image" name="Image" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3 align-items-center">
+                    <div class="col-sm-4">
+                        <label class="fw-bold" asp-for="Description">Subtheme description:</label>
+                        <div>
+                            <textarea id="description" class="form-control" placeholder="Subtheme description" asp-for="Description"></textarea>
+                        </div>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-sm-4">
+                <a asp-controller="Flow" asp-action="Index" asp-route-flowId="@Model.FlowId" class="btn btn-primary me-2">Back</a>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+            <div class="col-sm-8 text-end">
+                <button type="submit" class="btn btn-success" name="button" value="CreateQuestions">Add Subtheme</button>
+            </div>
+        </div>
+    </section>
+</form>

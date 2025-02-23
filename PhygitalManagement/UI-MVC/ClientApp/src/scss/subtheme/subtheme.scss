@@ -1,0 +1,77 @@
+.card-header{
+  padding: 20px;
+}
+
+.subthemeCompleted {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 70vh;
+  text-align: center;
+}
+
+.subthemeCompleted .card-header{
+  background-color: green;
+  color: white;
+}
+
+.subthemeCompleted .card {
+  width: 80%; 
+  max-width: 1000px; 
+}
+
+.subthemeCompleted .submitButton{
+  margin: 20px;
+}
+
+.submitButton{
+  background-color: black;
+  width: 20%;
+}
+
+.navigation-buttons{
+  display: flex;
+  justify-content: space-between;
+  gap: 50px
+}
+
+.navigation-buttons .homeButton {
+  order: 1; 
+  background-color: black;
+  width: 20%;
+}
+
+.navigation-buttons .nextSubthemeButton {
+  order: 2;
+  background-color: black;
+}
+
+@media only screen and (max-width: 576px){
+  #nwSub{
+    margin-top: 23%;
+  }
+}
+.subtheme-card-title{
+    padding: 5px;
+    font-size: 40px;
+    text-align: center;
+    background-color: rgba(213,255,212,0.53);
+    border-radius: 20px ;
+}
+
+button .viewQuestionButton{
+  align-items: center;
+}
+
+.card[data-activated="true"] {
+  background-color: red;
+}
+
+.card[data-activated="false"] .viewQuestionButton {
+  display: inline-block;
+}
+
+.card[data-activated="true"] .viewQuestionButton {
+  display: none;
+}

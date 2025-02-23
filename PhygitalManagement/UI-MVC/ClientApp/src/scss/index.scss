@@ -1,0 +1,224 @@
+﻿//opmaak voor de slogan
+.slogan-container{
+  position: relative;
+}
+
+.slogan {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 1.5em;
+  width: 0;
+  opacity: 0;
+  transition: width 2s, opacity 0.5s ease-in-out;
+
+  position: absolute;
+  margin-top: -5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  //font-size: 24px;
+  text-align: center;
+  //background-color: rgba(0, 0, 0, 0.5); 
+  padding: 10px 20px;
+}
+
+@keyframes typing {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    width: 100%;
+  }
+  90% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+    opacity: 0;
+  }
+}
+
+.highlight {
+  background-color: #0022ff;
+  font-weight: bold; 
+  padding: 2px 4px; 
+  border-radius: 3px; 
+}
+
+//interactieve card
+.instruction-container{
+  display: flex;
+  margin-bottom: 3%;
+  margin-top: 3%;
+  gap: 2.5%;
+}
+
+.instruction-card {
+  width: 300px;
+  height: 400px;
+  perspective: 1000px;
+  //margin-right: 2.5%;
+  justify-content: center;
+  text-align: center;
+
+  font-size: 1em;
+  line-height: 1.5em;
+  
+  background: linear-gradient(135deg, black, blue);
+  color: white; /* Ensure text is readable on the dark background */
+  border-radius: 10px; /* Rounded corners for cards */
+  padding: 20px; /* Padding inside each card */
+  margin: 10px; /* Margin between cards */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: shadow for cards */
+  flex: 1 1 calc(25% - 40px); /* Flex property for responsive cards */
+  min-width: 250px; /* Minimum width for cards */
+  transition: transform 0.1s ease; /* Smooth transition for the transform */
+  will-change: transform; /* Optimize performance for transform */
+}
+
+.instruction-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  mix-blend-mode: overlay;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.instruction-card:hover::before {
+  opacity: 1;
+}
+
+.instruction-card:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 0 8px 30px rgba(0, 0, 0, 0.35);
+  //background: linear-gradient(135deg, #0077ff, #1a1a1a);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(39,39,116,1) 35%, rgba(0,212,255,1) 100%);
+}
+
+.instruction-card .card-decoration {
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.instruction-card h3{
+  padding: 0 1% 0 1%;
+  text-transform: uppercase;
+  font-weight: bold;
+  user-select: none;
+}
+
+
+//boxes design
+.row--vertical-center{
+  //align-items: center;
+}
+
+.row{
+  display: flex;
+  //flex-direction: row;
+  //width: 100%;
+}
+
+.item{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  text-align: center;
+}
+.item div button{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#item2title{
+  font-size: 3rem;
+  font-weight: bolder;
+}
+
+//opmaak voor de carousel
+.carousel {
+  //max-width: 50%; 
+  //height: 80%;
+  //max-height: 50%;
+  margin-left: 1.2%;
+
+}
+.carousel-inner{
+  height: 0;
+  padding-bottom: 65%; /* this sets carousel aspect ratio (4:1 here) */
+  font-weight: bold;
+  font-size: larger;
+}
+.carousel-item {
+  position: absolute !important; /* Bootstrap is insistent */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.carousel-item img {
+  height: 100%; /* Bootstrap handles width already */
+  object-fit: cover; /* or 'contain' if you want stretch instead of crop */
+}
+
+.c-img{
+  filter: brightness(0.3);
+}
+
+#imageRow2{
+  border-radius: 5px;
+}
+
+//dynamic scalling
+@media only screen and (max-width: 576px) {
+  
+  #banner{
+    margin-top: 25%;
+  }
+  
+  .slogan{
+    font-size: 1rem;
+  }
+  
+  .instruction-container {
+    display: flex;
+    overflow-x: auto; /* Allows horizontal scrolling */
+    padding: 10px;
+    white-space: nowrap; /* Prevents wrapping of cards to new lines */
+  }
+  
+  #row1{
+    //display: flex;
+    //flex-direction: column;
+  }
+  .row{
+    display: flex;
+    flex-direction: column;
+  }
+  .row:last-child{
+    flex-direction: column-reverse;
+  }
+  .row img{
+    width: 95%;
+  }
+}
+

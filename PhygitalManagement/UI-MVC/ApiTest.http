@@ -1,0 +1,7 @@
+DELETE http://localhost:5049/api/Subthemes
+Accept: application/json
+Content-Type: application/json
+
+{
+  "subthemeId": 1
+}

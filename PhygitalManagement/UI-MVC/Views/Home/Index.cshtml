@@ -1,0 +1,89 @@
+﻿@{
+    ViewData["Title"] = @Localizer["Home Page"];
+}
+
+<div class="Home-container">
+    <div id="banner">
+        <img src="/images/StemconnectBanner.png" alt="StemconnectBanner" class="img-fluid">
+        <div class="slogan-container">
+            <p class="slogan">let your <span class="highlight">voice</span>be<span class="highlight">heard</span></p>
+        </div>
+    </div>
+    <div class="instruction-container">
+        <div class="instruction-card card">
+            <h3>@Localizer["Choose your subtheme"]</h3>
+        </div>
+        <div class="instruction-card card">
+            <h3>@Localizer["Answer the questions"]</h3>
+        </div>
+        <div class="instruction-card card">
+            <h3>@Localizer["Leave a personal message"]</h3>
+        </div>
+        <div class="instruction-card card">
+            <h3>@Localizer["Repeat"]</h3>
+        </div>
+    </div>
+    <div class="row row--vertical-center" id="row1">
+        <div id="carouselExampleCaptions" class="carousel slide card item" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active c.item" data-bs-interval="6000">
+                    <img src="/images/foto1bewerkt.png" class="d-block w-100 c-img card" alt="Election 1">
+                    <div class="carousel-caption d-none d-md-block">
+                        <p class="green-black d-none d-sm-block">
+                            Welcome to our community's platform for <span class="highlight">democratic participation</span>! Your <span class="highlight">voice</span> matters, and we want to hear from you regarding potential <span class="highlight">policy changes</span> that could shape the future of our city.
+                        </p>
+                        <p class="green-black d-block d-sm-none">
+                            Your <span class="highlight">voice</span> matters!.
+                        </p>
+                    </div>
+
+                </div>
+                <div class="carousel-item c.item" data-bs-interval="6000">
+                    <img src="/images/Election3.png" class="d-block w-100 c-img card" alt="Election 2">
+                    <div class="carousel-caption d-none d-md-block">
+                        <p class="green-black">
+                            <span class="highlight">Voting</span> is a fundamental right and a powerful way to influence decisions that impact our lives, our families, and our community. By <span class="highlight">participating</span> in this voting process, you have the opportunity to <span class="highlight">contribute</span> to the direction and development of our city.
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item c.item" data-bs-interval="6000">
+                    <img src="/images/carousel4.png" class="d-block w-100 c-img card" alt="Election 3" >
+                    <div class="carousel-caption d-none d-md-block">
+                        <p class="green-black">
+                            Your <span class="highlight">vote</span> will determine which <span class="highlight">policy changes</span> are prioritized and implemented by our city officials. From <span class="highlight">infrastructure improvements</span> to <span class="highlight">environmental initiatives</span>, each policy proposal addresses issues that directly affect you and your neighbors.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div>
+                <h3 class="display-4">@Localizer["Welcome"]</h3>
+                <p class="lead">@Localizer["HomeText"]</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row--vertical-center">
+        <div class="item">
+            <div>
+                <h3 id="item2title">@Localizer["Waar wacht je op?"]</h3>
+                <a asp-controller="Flow" asp-action="Index" asp-route-flowId="1" class="col-6 btn btn-light btn-lg rounded text-white" id="item2Button">@Localizer["Neem nu deel"]</a>
+            </div>
+        </div>
+        <div class="item">
+            <img src="/images/Election2.png" alt="sonic" id="imageRow2">
+        </div>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script src="~/dist/index.entry.js" defer></script>
+}

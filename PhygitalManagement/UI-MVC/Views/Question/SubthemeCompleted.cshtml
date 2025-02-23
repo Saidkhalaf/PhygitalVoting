@@ -1,0 +1,46 @@
+﻿@model PM.BL.Domain.questions.Question
+
+@{
+    ViewBag.Title = "Subtheme Completed";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<div class="container subthemeCompleted">
+    <div class="card">
+        <div class="card-header mb-5">
+            <h2 class="card-title">Congratulations!</h2>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title">You have completed this subtheme.</h1>
+            
+            <form>
+                <div class="form-group">
+                    <label for="opinion">Additional opinion about this subtheme: (Optional)</label>
+                    <textarea id="opinion" name="opinion" class="form-control"></textarea>
+                </div>
+                 
+                <button type="submit" class="btn btn-primary submitButton">Submit</button>
+                
+                <div class="alert alert-warning fade show" role="alert" id="opinion-alert" style="display: none;">
+                    <i class="fas fa-exclamation-circle"></i> Please fill in your opinion before submitting.
+                </div>
+                <div id="success-message" style="display: none;">
+                    <p><i class="fas fa-check-circle" style="color: green;"></i> Your opinion was successfully sent!</p>
+                </div>
+            </form>
+            
+            <div class="navigation-buttons">
+                <a href="/" class="btn btn-primary homeButton">Home</a>
+                <a asp-controller="Flow" asp-action="Index" asp-route-flowId="1" class="btn btn-primary nextSubthemeButton">Next Subthemes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/dist/formSubmitOpinion.entry.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+}
+

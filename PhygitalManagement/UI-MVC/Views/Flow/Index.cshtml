@@ -1,0 +1,76 @@
+@model PM.BL.Domain.flows.Flow;
+
+@{
+    ViewBag.Title = "All Subthemes";
+    Layout = "_Layout";
+}
+
+@if (ViewData["projectStatus"] != null)
+{
+    <h1>Subthemes</h1>
+
+    @if (User.IsInRole(CustomIdentityConstants.SubPlatformAdminRole) && User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        <a asp-controller="Subtheme" asp-action="AddSubtheme" asp-route-flowId="@Model.Id" class="btn btn-primary">Add new subtheme</a>
+    }
+
+    <div class="row mt-3">
+        @foreach (var subtheme in Model.Subthemes)
+        {
+            <div class="col-md-4 mb-4" id="card">
+                <div class="card h-100 mb-4 shadow-sm position-relative" id="card" data-activated="@subtheme.IsActivated.ToString().ToLower()">
+                    <img src="@Url.Content("images/" + subtheme.Image)" class="card-img-top img-fluid subthemeImg" alt="Subtheme Image">
+                    <span class="hidden subthemeId">@subtheme.Id</span>
+                    @if (User.IsInRole(CustomIdentityConstants.SubPlatformAdminRole) && User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <div class="position-absolute top-0 end-0 m-2">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="bi bi-three-dots-vertical"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li>
+                                        <a class="dropdown-item updateSubthemes" asp-controller="Subtheme" asp-action="Edit" asp-route-id="@subtheme.Id">Modify</a>
+                                    </li>
+                                    <li>
+                                        <form asp-controller="Subtheme" asp-action="ToggleActivation" method="post" style="display:inline;">
+                                            <input type="hidden" name="subthemeId" value="@subtheme.Id" />
+                                            <button type="submit" class="dropdown-item activate-deactivate-Subtheme">
+                                                @(subtheme.IsActivated ? "Deactivate" : "Activate")
+                                            </button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item deleteSubtheme">Delete</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                    <div class="card-body">
+                        <div class="subtheme-card-header mt-1">
+                            <h4 class="subtheme-card-title" id="subthemeName">@subtheme.Name</h4>
+                        </div>
+                        <p class="card-text" id="subthemeDesc">@subtheme.Description</p>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button class="btn btn-primary viewQuestionButton">
+                                <a asp-controller="Question" asp-action="Index" asp-route-subthemeId="@subtheme.Id" class="text-white">View Questions</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+</div>
+}
+else
+{
+    <div>
+        <h1>Deze enquête is momenteel niet actief</h1>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/dist/deleteSubthemes.entry.js" defer></script>
+    <script src="~/dist/subthemeActivateOrDeactivate.entry.js" defer></script>
+}

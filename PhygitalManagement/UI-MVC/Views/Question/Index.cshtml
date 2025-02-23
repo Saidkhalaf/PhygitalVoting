@@ -1,0 +1,81 @@
+@using PM.BL.Domain.questions
+@model PM.BL.Domain.questions.Question
+@{
+    ViewBag.Title = "Question";
+    Layout = "_Layout";
+}
+
+<div class="question-body">
+    <div>
+        <p id="current-position" class="hidden">@Model.Position</p>
+        <p id="subtheme-id" class="hidden">@Model.Subtheme.Id</p>
+        <p id="question-text-hidden" class="hidden">@Model.QuestionText</p>
+        <p id="question-type" class="hidden" data-question-type="@Model.QuestionType"></p>
+    </div>
+
+    <div>
+        <h1 class="subthemeDesc">@Model.Subtheme.Name</h1>
+    </div>
+
+    <div class="card question-card">
+        <div class="card-header mb-5">
+            <h2 class="card-title">Question</h2>
+        </div>
+
+        <p id="question-text">@Model.QuestionText</p>
+
+        <div class="divOptions card-body row">
+            @foreach (var option in Model.ResponseOptions)
+            {
+                <div class="col">
+                    @switch (Model.QuestionType)
+                    {
+                        case QuestionType.SINGLE or QuestionType.RANGE:
+                            <div class="hide_radio_checkbox">
+                                <input type="radio" id="@option.Id" name="option" value="@option.OptionText" autocomplete="off"/>
+                                <label class="btn btn-primary option-button" for="@option.Id">@option.OptionText</label>
+                            </div>
+                            break;
+                        case QuestionType.MULTIPLE:
+                            <div class="hide_radio_checkbox">
+                                <input type="checkbox" id="@option.Id" name="option" value="@option.OptionText"/>
+                                <label class="btn btn-primary option-button" for="@option.Id">@option.OptionText</label>
+                            </div>
+                            break;
+                        case QuestionType.OPEN:
+                            <div>
+                                <textarea class="form-control" id="@option.Id" rows="10" cols="70" name="option"></textarea>
+                                <label for="@option.Id">@option.OptionText</label>
+                            </div>
+                            break;
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="alert alert-danger fade show" role="alert" id="no-answer-alert" style="display: none;">
+            <i class="fas fa-exclamation-circle"> Please select at least an answer before proceeding.</i>
+        </div>
+
+        <div class="alert alert-warning fade show" role="alert" id="open-question-alert" style="display: none;">
+            <i class="fas fa-exclamation-circle"> Please fill in an answer before proceeding.</i>
+        </div>
+
+        <div class="alert alert-info fade show" role="alert" style="display: none;"></div>
+
+        <div class="navigation-buttons-Question">
+            <button type="button" id="next-question" class="btn btn-primary">Next Question</button>
+            <button type="button" id="previous-question" class="btn btn-primary">Previous Question</button>
+        </div>
+    </div>
+</div>
+
+<div class="navigation-buttons-Subthemes" data-totalsubthemes="@ViewBag.TotalSubthemes">
+    <a href="@Url.Action("Index", "Question", new { subthemeId = Model.Subtheme.Id - 1 })" id="previous-subtheme" class="btn btn-primary">Previous Subtheme</a>
+    <a href="@Url.Action("Index", "Question", new { subthemeId = Model.Subtheme.Id + 1 })" id="next-subtheme" class="btn btn-primary">Next Subtheme</a>
+</div>
+
+@section Scripts {
+    <script src="~/dist/questions.entry.js" defer></script>
+    <script src="~/dist/loadNextOrPreviousSubtheme.entry.js" defer></script>
+}

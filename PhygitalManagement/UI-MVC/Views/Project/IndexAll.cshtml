@@ -1,0 +1,27 @@
+@model IEnumerable<PM.BL.Domain.projects.Project>
+
+@{
+    ViewBag.Title = "All Platforms";
+    Layout = "_Layout";
+}
+
+<h2>All platforms</h2>
+<p><strong>Totaal aantal deelnemers: </strong>@ViewData["TotalParticipantCount"]</p>
+<div class="accordion" id="accordionExample">
+    @foreach (var project in Model)
+    {
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@project.Id" aria-expanded="false" aria-controls="collapseTwo">
+                    @project.Name - @project.ManagerUser.Email
+                </button>
+            </h2>
+            <div id="@project.Id" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <p><strong>Status: </strong>@(project.Status ? "Actief" : "Inactief")</p>
+                    <p><strong>Aantal deelnemers: </strong>@project.ParticipantCount</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
